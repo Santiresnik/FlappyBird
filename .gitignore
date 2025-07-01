@@ -1,0 +1,9 @@
+/bin/
+/obj/
+*.o
+*.exe
+*.out
+*.layout
+*.depend
+*.workspace
+.vscode/
