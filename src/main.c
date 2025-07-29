@@ -23,6 +23,7 @@ int main() {
 
         switch (current) {
             case STATE_MENU:
+                if (key == INPUT_SPACE || key == INPUT_ENTER) {
                     game_reset(&game);
                     current = STATE_PLAYING;
                 } else if (key == INPUT_ESC) {
