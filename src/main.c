@@ -18,33 +18,30 @@ int main() {
 
     int running = 1;
     while (running) {
-        float dt = get_current_time();
-        int key; //Input key, needs function
+        float dt = get_delta_time();
+        int key = input_poll; //Input key
 
         switch (current) {
             case STATE_MENU:
-                if (key == ' ' || key == '\n') { //just to fill, does not mean this is how game will work
                     game_reset(&game);
                     current = STATE_PLAYING;
-                } else if (key == 'q') {
+                } else if (key == INPUT_ESC) {
                     current = STATE_QUIT;
                 }
                 break;
 
             case STATE_PLAYING:
                 game_update(&game, dt, key);
-                render_draw_game(&game);
                 if (game.is_game_over) {
                     current = STATE_GAME_OVER;
                 }
                 break;
 
-            case STATE_GAME_OVER: //just for now, maybe we change, with r reset and q quit
-                render_draw_game_over(&game);
-                if (key == 'r') {
+            case STATE_GAME_OVER: 
+                if (key == INPUT_SPACE || key == INPUT_ENTER) {
                     game_reset(&game);
                     current = STATE_PLAYING;
-                } else if (key == 'q') {
+                } else if (key == INPUT_ESC) {
                     current = STATE_QUIT;
                 }
                 break;
