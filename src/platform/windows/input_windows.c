@@ -31,11 +31,14 @@ InputAction input_poll_windows(void){
         } else {
             switch (ch) {
                 case 27: 
-                    input = INPUT_PAUSE;
+                    input = INPUT_ESC;
                     break;
                 case ' ': 
                     input = INPUT_SPACE;
                     break;
+                case '\n':
+                    input = INPUT_ENTER;
+                    break; 
                 default: 
                     input = INPUT_OTHER;
                     break;

@@ -19,7 +19,7 @@ int main() {
     int running = 1;
     while (running) {
         float dt = get_current_time();
-        int key //Input key, needs function
+        int key; //Input key, needs function
 
         switch (current) {
             case STATE_MENU:

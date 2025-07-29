@@ -4,7 +4,8 @@
 typedef enum {
     INPUT_NONE,
     INPUT_SPACE,
-    INPUT_PAUSE,
+    INPUT_ESC,
+    INPUT_ENTER,
     INPUT_UP,
     INPUT_DOWN,
     INPUT_LEFT,
