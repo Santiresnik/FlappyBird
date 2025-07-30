@@ -17,7 +17,7 @@ int main() {
         current_time = get_current_time();
         dt = current_time - previous_time;
         previous_time = current_time;
-        key = input_poll(); //Input key, needs function
+        key = input_poll(); //Input key
         switch (game.current) {
             case STATE_MENU:
                 if (key == INPUT_SPACE || key == INPUT_ENTER) { //just to fill, does not mean this is how game will work
