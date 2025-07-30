@@ -9,12 +9,19 @@ typedef struct {
 
 typedef struct {
     float x;
-    float y;
     float gap_y;
     int active;
 } Pipe;
 
+typedef enum {
+    STATE_MENU,
+    STATE_PLAYING,
+    STATE_GAME_OVER,
+    STATE_QUIT
+} GameStateId;
+
 typedef struct {
+    GameStateId current;
     Bird bird;
     Pipe pipes[MAX_PIPES];
     float pipe_spawn_timer;

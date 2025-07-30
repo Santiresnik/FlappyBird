@@ -1,6 +1,6 @@
 #include "game.h"
 #include "config.h"
-
+#include "input.c"
 void game_init(GameState* game) {
     loadDefaultConfig(&game->config);
     game->score = 0;
@@ -15,7 +15,7 @@ void game_init(GameState* game) {
     }
 }
 
-void game_update(GameState* game, float delta_time, char input) {
+void game_update(GameState* game, float delta_time, InputAction input) {
     // TODO: Handle input, update physics, check collisions
 }
 

@@ -1,58 +1,52 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "game.h"
 #include "input.h"
 #include "timer.h"
 
-typedef enum {
-    STATE_MENU,
-    STATE_PLAYING,
-    STATE_GAME_OVER,
-    STATE_QUIT
-} GameScreen;
-
 int main() {
+    srand(time(NULL));
+    float previous_time = get_current_time();
+    float current_time, dt;
+    InputAction key;
     GameState game;
-    GameScreen current = STATE_MENU;
-
     game_init(&game);
-
     int running = 1;
     while (running) {
-        float dt = get_delta_time();
-        int key = input_poll; //Input key
-
-        switch (current) {
+        current_time = get_current_time();
+        dt = current_time - previous_time;
+        previous_time = current_time;
+        key = input_poll(); //Input key, needs function
+        switch (game.current) {
             case STATE_MENU:
-                if (key == INPUT_SPACE || key == INPUT_ENTER) {
+                if (key == INPUT_SPACE || key == INPUT_ENTER) { //just to fill, does not mean this is how game will work
                     game_reset(&game);
-                    current = STATE_PLAYING;
+                    game.current = STATE_PLAYING;
                 } else if (key == INPUT_ESC) {
-                    current = STATE_QUIT;
+                    game.current = STATE_QUIT;
                 }
                 break;
-
             case STATE_PLAYING:
                 game_update(&game, dt, key);
+                render_draw_game(&game);
                 if (game.is_game_over) {
-                    current = STATE_GAME_OVER;
+                    game.current = STATE_GAME_OVER;
                 }
                 break;
-
-            case STATE_GAME_OVER: 
+            case STATE_GAME_OVER: //just for now, maybe we change, with r reset and q quit
+                render_draw_game_over(&game);
                 if (key == INPUT_SPACE || key == INPUT_ENTER) {
                     game_reset(&game);
-                    current = STATE_PLAYING;
+                    game.current = STATE_PLAYING;
                 } else if (key == INPUT_ESC) {
-                    current = STATE_QUIT;
+                    game.current = STATE_QUIT;
                 }
                 break;
-
             case STATE_QUIT:
                 running = 0;
                 break;
         }
-
     }
-
     return 0;
 }
