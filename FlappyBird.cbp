@@ -55,6 +55,18 @@
 		<Unit filename="src/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src/platform/linux/input_linux.c">
+			<Option compilerVar="CC" />
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="src/platform/linux/input_linux.h" />
+		<Unit filename="src/platform/linux/render_linux.c">
+			<Option compilerVar="CC" />
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="src/platform/linux/render_linux.h" />
 		<Unit filename="src/platform/windows/input_windows.c">
 			<Option compilerVar="CC" />
 		</Unit>
