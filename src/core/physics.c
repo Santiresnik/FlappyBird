@@ -6,7 +6,7 @@ static void update_pipes(GameState* state, float dt);
 void physics_update(GameState* state, float dt){
     state->bird.velocity += state->config.gravity * dt;
     state->bird.y += state->bird.velocity * dt;
-    if(state->bird.y > WORLD_HEIGHT){
+    if(state->bird.y > WORLD_HEIGHT){ //stops bird from passing limit
         state->bird.y = WORLD_HEIGHT;
         state->bird.velocity = 0;
     }
@@ -17,10 +17,10 @@ static void update_pipes(GameState* state, float dt){
     state->pipe_spawn_timer += dt;
     for(int i=0; i<MAX_PIPES; i++){
         Pipe* pipe = &state->pipes[i];
-        if(pipe->active){
+        if(pipe->active){ //moves pipes to the right (bird stays in x)
             pipe->x += state->config.pipe_speed * dt;
             if(pipe->x + state->config.pipe_width < 0){
-                pipe->active = 0;
+                pipe->active = 0; //deactivates pipe if its all non visible
             }
         }
     }
@@ -29,7 +29,7 @@ static void update_pipes(GameState* state, float dt){
         int done = 0;
         for(int i=0; i<MAX_PIPES && !done; i++){
             Pipe* pipe = &state->pipes[i];
-            if(!pipe->active){
+            if(!pipe->active){ //generates new pipe with random gap position
                 pipe->x = WORLD_WIDTH;
                 pipe->gap_y = PIPE_GAP_MIN + ((float)rand()/(float)RAND_MAX)*(PIPE_GAP_MAX - PIPE_GAP_MIN);
                 pipe->active = 1;
@@ -51,9 +51,9 @@ int physics_check_collision(const GameState* state){
             float bx = state->bird.x;
             float by = state->bird.y;
             if(pipe.active &&
-              (bx > pipe.x && bx > (pipe.x + state->config.pipe_width)) &&
+              (bx > pipe.x && bx < (pipe.x + state->config.pipe_width)) &&
               (by < pipe.gap_y || by >(pipe.gap_y + state->config.pipe_gap_height))){
-                collision = 1;
+                collision = 1; //checks if bird touches any part of a pipe
             }
         }
     }
