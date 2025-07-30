@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include "config.h"
+#include "input.h"
 typedef struct {
     float x;
     float y;
@@ -33,7 +34,7 @@ typedef struct {
 } GameState;
 
 void game_init(GameState *game);
-void game_update(GameState *game, float delta_time, char jump_input);
+void game_update(GameState *game, float delta_time, InputAction jump_input);
 int game_check_collision(GameState *game);
 void game_reset(GameState *game);
 

@@ -6,7 +6,3 @@ double get_current_time() {
     // CLOCKS_PER_SEC gives number of ticks per second
     return (double)clock() / CLOCKS_PER_SEC;
 }
-
-double get_delta_time(){
-    //delta time for frame refresh
-}

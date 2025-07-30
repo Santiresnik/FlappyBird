@@ -1,5 +1,4 @@
 #include "config.h"
-#include "game.h"
 
 void loadDefaultConfig(GameConfig* config) {
     config->gravity = DEFAULT_GRAVITY;

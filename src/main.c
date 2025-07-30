@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "game.h"
-#include "input.h"
-#include "timer.h"
+#include "core/game.h"
+#include "core/input.h"
+#include "core/timer.h"
 
 int main() {
     srand(time(NULL));
@@ -29,13 +29,13 @@ int main() {
                 break;
             case STATE_PLAYING:
                 game_update(&game, dt, key);
-                render_draw_game(&game);
+                //render_draw_game(&game);
                 if (game.is_game_over) {
                     game.current = STATE_GAME_OVER;
                 }
                 break;
             case STATE_GAME_OVER: //just for now, maybe we change, with r reset and q quit
-                render_draw_game_over(&game);
+                //render_draw_game_over(&game);
                 if (key == INPUT_SPACE || key == INPUT_ENTER) {
                     game_reset(&game);
                     game.current = STATE_PLAYING;

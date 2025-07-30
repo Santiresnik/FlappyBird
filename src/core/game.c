@@ -1,6 +1,4 @@
 #include "game.h"
-#include "config.h"
-#include "input.c"
 void game_init(GameState* game) {
     loadDefaultConfig(&game->config);
     game->score = 0;
