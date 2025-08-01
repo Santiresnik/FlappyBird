@@ -1,3 +1,15 @@
+/*
+This file contains the implementation of the loadDefaultConfig function,
+which initializes a GameConfig struct with predefined default constants.
+These settings control core gameplay elements such as gravity, jump strength,
+pipe behavior, and input controls.
+
+Usage:
+
+- Call loadDefaultConfig(&config) at game initialization to ensure the
+game starts with consistent parameters.
+
+*/
 #include "config.h"
 
 void loadDefaultConfig(GameConfig* config) {

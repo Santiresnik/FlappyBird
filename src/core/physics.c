@@ -1,3 +1,17 @@
+/*
+This file contains the logic for applying gravity to the bird, moving pipes across
+the screen, spawning new pipes, and detecting collisions with pipes or the screen edges.
+
+Main responsibilities:
+- Updating the bird's vertical position based on velocity and gravity.
+- Moving active pipes and spawning new ones at randomized gap positions.
+- Checking for collisions between the bird and obstacles.
+
+Depends on:
+
+game.h for the GameState structure and configuration.
+*/
+
 #include "physics.h"
 #include <stdlib.h>
 

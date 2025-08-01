@@ -1,3 +1,16 @@
+/*
+This file defines the main logic for initializing, updating, and resetting
+the game state. It interfaces with configuration settings and is responsible
+for managing the lifecycle of key game elements such as the bird and pipes.
+
+Functions:
+
+- game_init: Sets up the initial game state and loads default configuration.
+- game_update: Handles per-frame logic.
+- game_reset: Resets the game state to its initial condition.
+- game_handle_collision: Handles player collision and life management.
+*/
+
 #include "game.h"
 void game_init(GameState* game) {
     loadDefaultConfig(&game->config);

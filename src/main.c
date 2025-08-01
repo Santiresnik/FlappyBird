@@ -1,3 +1,14 @@
+/**
+This file contains the main game loop and handles the high-level game state transitions
+such as switching between the menu, playing, game over, and quit states.
+It initializes the game, seeds the random number generator, calculates frame delta time,
+processes input, and updates the game logic accordingly.
+
+Key components used:
+- GameState: Holds the current game data and status.
+- InputAction: Represents user input actions.
+- Timer: Used to calculate frame timing for smooth updates.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

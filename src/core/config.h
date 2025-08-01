@@ -1,3 +1,14 @@
+/*
+This header defines core constants used throughout the game, such as
+world dimensions, timing parameters, and pipe behavior constraints.
+It also defines the GameConfig structure, which encapsulates configurable
+parameters affecting gameplay and allows them to be loaded or modified.
+
+GameConfig:
+
+Holds the runtime configuration used by the game engine. Should be initialized using loadDefaultConfig().
+
+*/
 #ifndef CONFIG_H
 #define CONFIG_H
 

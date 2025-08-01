@@ -1,3 +1,19 @@
+/*
+This header defines the structures and enumerations used to represent
+the game’s internal state, such as the player’s bird, pipes,
+configuration, and overall game status. It also declares functions for
+initializing, updating, resetting, and checking collisions in the game.
+
+Structures:
+
+- Bird: Represents the player's avatar with position and velocity.
+- Pipe: Represents a pipe obstacle, with x position and gap location.
+- GameState: Holds the entire current state of the game including bird,
+pipes, score, configuration, and game mode.
+
+GameStateId: Enum representing the current phase of the game (e.g., menu, playing).
+
+*/
 #ifndef GAME_H
 #define GAME_H
 #include "config.h"

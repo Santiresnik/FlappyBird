@@ -1,3 +1,14 @@
+/*
+ Implements the input polling logic for Windows console.
+ Uses conio.h functions _kbhit() and _getch() to check if a key has been pressed
+ and then reads the key code, including special keys like arrow keys.
+
+ The function input_poll_windows() returns an InputAction enum value representing
+ the detected key press or INPUT_NONE if no key is pressed.
+ 
+ Arrow keys produce two-character codes: first 0 or 224, then a code for the arrow.
+ The function handles this and maps keys to meaningful input actions for the game.
+*/
 #include "input_windows.h"
 #include <conio.h>
 
