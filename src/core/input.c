@@ -1,54 +1,58 @@
 /*
-This file provides a unified input_poll function that delegates
-actual input handling to the appropriate platform-specific implementation
-depending on whether the game is being compiled for Windows or Linux.
+ Implements the input polling logic using ncurses or PDCurses depending on whether 
+ the game is being compiled for Windows or Linux.
+ 
+ Uses (n)curses.h function getch() to check if a key has been pressed (non blocking
+ if configured properly) including special keys like arrow keys.
 
-Usage:
+ The function input_poll_windows() returns an InputAction enum value representing
+ the detected key press or INPUT_NONE if no key is pressed.
 
-- Ensure that either the WINDOWS or LINUX macro is defined at compile time.
-- Do not define both at once, or the compilation will fail.
-- Calls input_poll_windows or input_poll_linux accordingly.
-- Includes error checks to prevent conflicting or missing platform definitions.
+ Usage:
 
-*/
+ - Ensure that either the WINDOWS or LINUX macro is defined at compile time.
+ - Do not define both at once, or the compilation will fail.
+ - Calls input_poll_windows or input_poll_linux accordingly.
+ - Includes error checks to prevent conflicting or missing platform definitions.
+
+ */
+
 #include "input.h"
-
-#ifndef WINDOWS
-#ifndef LINUX
-#error "Either LINUX or WINDOWS must be defined"
-#endif
-#endif
-
-#ifdef WINDOWS
-#ifndef LINUX
-#include "../platform/windows/input_windows.h"
-#else
-#error "LINUX and WINDOWS can't be defined simultaneously"
-#endif
-#endif
-
-#ifdef LINUX
-#ifndef WINDOWS
-#include "../platform/linux/input_linux.h"
-#else
-#error "LINUX and WINDOWS can't be defined simultaneously"
-#endif
-#endif
-
+#include "curses_wrapper.h"
 InputAction input_poll(void){
-#ifdef WINDOWS
-#ifndef LINUX
-    return input_poll_windows();
-#else
-#error "LINUX and WINDOWS can't be defined simultaneously"
-#endif
-#endif
-
-#ifdef LINUX
-#ifndef WINDOWS
-    return input_poll_linux();
-#else
-#error "LINUX and WINDOWS can't be defined simultaneously"
-#endif
-#endif
+    InputAction input;
+    int ch = getch();
+    if(ch == ERR){
+        input = INPUT_NONE;
+    }
+    else{   
+        switch (ch) {
+            case KEY_UP: 
+                input = INPUT_UP;
+                break;
+            case KEY_DOWN: 
+                input = INPUT_DOWN;
+                break;
+            case KEY_LEFT: 
+                input = INPUT_LEFT;
+                break;
+            case KEY_RIGHT: 
+                input = INPUT_RIGHT;
+                break;
+                case 27: 
+                input = INPUT_ESC;
+                break;
+            case ' ': 
+                input = INPUT_SPACE;
+                break;
+            case '\n':
+            case '\r':
+                input = INPUT_ENTER;
+                break; 
+            default: 
+                input = INPUT_OTHER;
+                break;
+        }
+    }
+    return input;
 }
