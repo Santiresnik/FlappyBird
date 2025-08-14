@@ -12,6 +12,8 @@ Functions:
 */
 
 #include "game.h"
+#include "physics.h"
+
 void game_init(GameState* game) {
     loadDefaultConfig(&game->config);
     game->score = 0;
@@ -27,7 +29,30 @@ void game_init(GameState* game) {
 }
 
 void game_update(GameState* game, float delta_time, InputAction input) {
-    // TODO: Handle input, update physics, check collisions
+    if (game->is_game_over) return;
+
+    // Handle jump input
+    if (input == INPUT_SPACE) {
+        game->bird.velocity = game->config.jump_strength;
+    }
+
+    // Update physics (bird, pipes, spawning)
+    physics_update(game, delta_time);
+
+    // Scoring: increment score when bird passes a pipe
+    for (int i = 0; i < MAX_PIPES; i++) {
+        Pipe* pipe = &game->pipes[i];
+        if (pipe->active &&
+            pipe->x + game->config.pipe_width < game->bird.x) {
+            game->score++;
+            pipe->active = 0;
+        }
+    }
+
+    // Collision check
+    if (physics_check_collision(game)) {
+        game_handle_collision(game);
+    }
 }
 
 void game_reset(GameState* game) {
@@ -35,5 +60,13 @@ void game_reset(GameState* game) {
 }
 
 void game_handle_collision(GameState* game) {
-    // TODO: Decrease lives, check for game over
+    game->lives--;
+    if (game->lives <= 0) {
+        game->is_game_over = 1;
+    } else {
+        // We could reset bird position and velocity for next life
+        
+        //We should make a few seconds of grace period
+        
+    }
 }

@@ -24,13 +24,9 @@ src/
 
 ├── platform/windows/ → Windows-specific input/rendering
 
-│ ├── input_windows.[ch] → Input with conio.h or ncurses for Windows
-
 │ ├── render_windows.[ch] → ASCII rendering for Windows terminal
 
 ├── platform/linux/ → Linux-specific input/rendering
-
-│ ├── input_linux.[ch] → Input for linux
 
 │ ├── render_linux.[ch] → ASCII rendering for linux terminal
 
