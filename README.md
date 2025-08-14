@@ -3,15 +3,18 @@
 A terminal-based version of the classic Flappy Bird, written in C with portability in mind. This project separates platform-independent game logic from platform-specific input/output layers, making it easy to compile on both Linux and Windows.
 
 📚 Libraries
+
 This project uses Ncurses library for both Windows and Linux. This is a library for building text-based user interfaces in a terminal. You’ll need it installed before compiling and running this project.
 
 Linux bash commands (Ubuntu):
+
 sudo apt update
+
 sudo apt install libncurses5-dev libncursesw5-dev
 
 Windows:
 
-[Link to PDCurses (equivalent of ncurses ofr CodeBlocks)](https://pdcurses.org/)
+[Link to PDCurses (equivalent of ncurses for CodeBlocks)](https://pdcurses.org/)
 
 
 📁 Project Structure
