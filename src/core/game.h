@@ -53,7 +53,7 @@ typedef struct {
 
 void game_init(GameState *game);
 void game_update(GameState *game, float delta_time, InputAction jump_input);
-int game_check_collision(GameState *game);
+void game_handle_collision(GameState *game);
 void game_reset(GameState *game);
 
 #endif

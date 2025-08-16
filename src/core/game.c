@@ -54,14 +54,14 @@ void game_update(GameState* game, float delta_time, InputAction input) {
     // Grace period
     if (game->collision_timer > 0.0f) {
         game->collision_timer -= delta_time;
-        return; 
+        return;
     }
 
     // Collision check
     if (physics_check_collision(game) && game->collision_timer <= 0) {
         game_handle_collision(game);
         game->collision_timer = DEFAULT_COLLISION_TIMER;
-        
+
     }
 }
 
@@ -74,6 +74,6 @@ void game_handle_collision(GameState* game) {
     if (game->lives <= 0) {
         game->is_game_over = 1;
     } else {
-        // We could reset bird position and velocity for next life        
+        // We could reset bird position and velocity for next life
     }
 }
