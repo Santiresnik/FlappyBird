@@ -32,6 +32,7 @@ Holds the runtime configuration used by the game engine. Should be initialized u
 #define DEFAULT_PIPE_SPAWN_INTERVAL 0
 #define DEFAULT_JUMP_KEY 0
 #define DEFAULT_LIVES 3
+#define DEFAULT_COLLISION_TIMER 3.0f // 3 seconds grace period after collision
 
 typedef struct {
     float gravity;

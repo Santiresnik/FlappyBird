@@ -47,6 +47,8 @@ typedef struct {
     int is_game_over;
     GameConfig config;
     char username[MAX_USERNAME_LEN];
+    float collision_timer; // Grace period timer
+
 } GameState;
 
 void game_init(GameState *game);

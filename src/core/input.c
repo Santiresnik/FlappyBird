@@ -39,7 +39,7 @@ InputAction input_poll(void){
             case KEY_RIGHT: 
                 input = INPUT_RIGHT;
                 break;
-                case 27: 
+            case 27: 
                 input = INPUT_ESC;
                 break;
             case ' ': 
