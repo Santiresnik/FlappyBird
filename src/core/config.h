@@ -16,8 +16,8 @@ Holds the runtime configuration used by the game engine. Should be initialized u
 #define MAX_USERNAME_LEN 20
 #define TICKRATE 30
 #define TIMESTEP 1.0f/TICKRATE
-#define WORLD_HEIGHT 100
-#define WORLD_WIDTH 100
+#define WORLD_HEIGHT 30
+#define WORLD_WIDTH 120
 #define RAND_MARGIN_PERCENT 10
 #define PIPE_GAP_MIN (WORLD_HEIGHT*(0.5f - RAND_MARGIN_PERCENT/100.0f))
 #define PIPE_GAP_MAX (WORLD_HEIGHT*(0.5f + RAND_MARGIN_PERCENT/100.0f))
@@ -38,8 +38,8 @@ typedef struct {
     float jump_strength;
     float pipe_speed;
     float pipe_spawn_interval;
-    int pipe_gap_height;
-    int pipe_width;
+    float pipe_gap_height;
+    float pipe_width;
     char jump_key;
 } GameConfig;
 
