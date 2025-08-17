@@ -8,13 +8,13 @@ This project uses Ncurses library for both Windows and Linux. This is a library 
 
 Linux bash commands (Ubuntu):
 
-sudo apt update
+    sudo apt update
 
-sudo apt install libncurses5-dev libncursesw5-dev
+    sudo apt install libncurses5-dev libncursesw5-dev
 
 Windows:
 
-[Link to PDCurses (equivalent of ncurses for CodeBlocks)](https://pdcurses.org/)
+    [Link to PDCurses (equivalent of ncurses for CodeBlocks)](https://pdcurses.org/)
 
 
 📁 Project Structure

@@ -47,11 +47,13 @@ typedef struct {
     int is_game_over;
     GameConfig config;
     char username[MAX_USERNAME_LEN];
+    float collision_timer; // Grace period timer
+
 } GameState;
 
 void game_init(GameState *game);
 void game_update(GameState *game, float delta_time, InputAction jump_input);
-int game_check_collision(GameState *game);
+void game_handle_collision(GameState *game);
 void game_reset(GameState *game);
 
 #endif

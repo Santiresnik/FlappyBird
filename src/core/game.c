@@ -22,6 +22,7 @@ void game_init(GameState* game) {
     game->bird.x = DEFAULT_START_POS_X;
     game->bird.y = DEFAULT_START_POS_Y;
     game->bird.velocity = 0;
+    game->collision_timer = 0.0f;
 
     for (int i = 0; i < MAX_PIPES; i++) {
         game->pipes[i].active = 0;
@@ -50,8 +51,10 @@ void game_update(GameState* game, float delta_time, InputAction input) {
         }
 
         // Collision check
-        if (physics_check_collision(game)) {
+        if (physics_check_collision(game) && game->collision_timer <= 0) {
             game_handle_collision(game);
+            game->collision_timer = DEFAULT_COLLISION_TIMER;
+
         }
     }
 }
@@ -66,8 +69,5 @@ void game_handle_collision(GameState* game) {
         game->is_game_over = 1;
     } else {
         // We could reset bird position and velocity for next life
-        
-        //We should make a few seconds of grace period
-        
     }
 }
