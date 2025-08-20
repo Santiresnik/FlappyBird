@@ -51,6 +51,17 @@ typedef struct {
 
 } GameState;
 
+/*
+typedef struct {
+    char name[MAX_USERNAME_LEN]; // 3 letters + '\0'
+    int score;
+} HighScore;
+
+extern HighScore high_scores[MAX_SCORES];
+
+void add_high_score(const char *name, int score);
+
+*/
 void game_init(GameState *game);
 void game_update(GameState *game, float delta_time, InputAction jump_input);
 void game_handle_collision(GameState *game);

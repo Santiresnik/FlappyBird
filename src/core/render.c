@@ -72,3 +72,14 @@ static void game_to_screen_xy(int scr_width, int scr_height, float gx, float gy,
     *psx = ROUND(MAP(gx, 0, WORLD_WIDTH-1, 0, scr_width-1));
     *psy = ROUND(MAP(gy, 0, WORLD_HEIGHT-1, scr_height-1, 0));
 }
+
+void render_menu(const GameState* game){
+
+}
+
+void render_gameover(const GameState* game){
+
+}
+void render_highscore(const GameState* game){
+
+}
