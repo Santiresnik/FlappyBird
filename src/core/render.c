@@ -17,10 +17,8 @@ void render_init(void) {
     noecho();             // Don’t echo pressed keys
     keypad(stdscr, TRUE); // Enable special keys (arrows, etc.)
     curs_set(0);          // Hide cursor
-//    halfdelay(1);      // Wait up to 100ms for user input
     cbreak();             // Disable line buffering
     nodelay(stdscr, TRUE); // Non-blocking input
-//    timeout(10);
     getmaxyx(stdscr, rows, cols);
     if (has_colors()) {
         start_color();
