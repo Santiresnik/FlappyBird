@@ -28,7 +28,7 @@ typedef struct {
     float x;
     float gap_y;
     int active;
-    int scored; // To track if the bird has passed this pipe for scoring
+    int passed; // To track if the bird has passed this pipe for scoring
 } Pipe;
 
 typedef enum {

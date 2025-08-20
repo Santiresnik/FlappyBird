@@ -86,6 +86,19 @@ void render_draw(const GameState* game){
     }
     attroff(COLOR_PAIR(2));
 
+    // Draw score
+    attron(COLOR_PAIR(3));
+    mvprintw(0, cols - 12, "Score: %d", game->score);
+    attroff(COLOR_PAIR(3));
+
+    //Draw lives
+     attron(COLOR_PAIR(3));
+    mvprintw(0, 0, "Lives: ");  // Position top-left corner
+    for (int i = 0; i < game->lives; i++) {
+        mvprintw(0, 7 + i*2, HEART);  // Print hearts with spacing
+    }
+    attroff(COLOR_PAIR(3));
+
     refresh();
 }
 
@@ -99,8 +112,5 @@ void render_menu(const GameState* game){
 }
 
 void render_gameover(const GameState* game){
-
-}
-void render_highscore(const GameState* game){
 
 }

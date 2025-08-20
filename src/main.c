@@ -33,6 +33,7 @@ int main() {
         key = input_poll(); //Input key
         switch (game.current) {
             case STATE_MENU:
+                render_menu(&game);
                 if (key == INPUT_SPACE || key == INPUT_ENTER) { //just to fill, does not mean this is how game will work
                     game_reset(&game);
                     game.current = STATE_PLAYING;
@@ -51,6 +52,8 @@ int main() {
                 //render_draw_game_over(&game);
 
                 //add_high_score(game.username, game.score);
+
+                render_gameover(&game);
                 
                 if (key == INPUT_SPACE || key == INPUT_ENTER) {
                     game_reset(&game);
