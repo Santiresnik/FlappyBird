@@ -47,6 +47,9 @@ int main() {
                 break;
             case STATE_GAME_OVER: //just for now, maybe we change, with r reset and q quit
                 //render_draw_game_over(&game);
+
+                //add_high_score(game.username, game.score);
+                
                 if (key == INPUT_SPACE || key == INPUT_ENTER) {
                     game_reset(&game);
                     game.current = STATE_PLAYING;
@@ -61,3 +64,26 @@ int main() {
     }
     return 0;
 }
+/*
+  void add_high_score(const char *name, int score) {
+    // Find position for new score
+    int i;
+    for (i = 0; i < MAX_SCORES; i++) {
+        if (score > high_scores[i].score) {
+            // Shift lower scores down
+            for (int j = MAX_SCORES - 1; j > i; j--) {
+                high_scores[j] = high_scores[j - 1];
+            }
+            // Insert new score
+            high_scores[i].name[0] = name[0];
+            high_scores[i].name[1] = name[1];
+            high_scores[i].name[2] = name[2];
+            high_scores[i].name[3] = '\0';
+            high_scores[i].score = score;
+            break;
+        }
+    }
+}
+*/
+
+

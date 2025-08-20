@@ -47,9 +47,21 @@ void render_draw(const GameState* game){
     game_to_screen_xy(cols, rows, game->bird.x, game->bird.y, &bx, &by);
 
     clear();
-    attron(COLOR_PAIR(1));
-    mvaddch(by, bx, BIRD_SYMBOL);
-    attroff(COLOR_PAIR(1));
+
+
+    if (game->collision_timer > 0) {
+        // Blink: only show the bird if "timer * 10" is even
+        if (((int)(game->collision_timer * 10)) % 2 == 0) {
+            attron(COLOR_PAIR(1));
+            mvaddch(by, bx, BIRD_SYMBOL);
+            attroff(COLOR_PAIR(1));
+        }
+    } else {
+        // Normal render
+        attron(COLOR_PAIR(1));
+        mvaddch(by, bx, BIRD_SYMBOL);
+        attroff(COLOR_PAIR(1));
+    }
 
     attron(COLOR_PAIR(2));
     for(int i = 0; i<MAX_PIPES; i++){
@@ -73,4 +85,15 @@ void render_draw(const GameState* game){
 static void game_to_screen_xy(int scr_width, int scr_height, float gx, float gy, int* psx, int* psy){
     *psx = ROUND(MAP(gx, 0, WORLD_WIDTH-1, 0, scr_width-1));
     *psy = ROUND(MAP(gy, 0, WORLD_HEIGHT-1, scr_height-1, 0));
+}
+
+void render_menu(const GameState* game){
+
+}
+
+void render_gameover(const GameState* game){
+
+}
+void render_highscore(const GameState* game){
+
 }

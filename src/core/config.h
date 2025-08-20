@@ -13,7 +13,6 @@ Holds the runtime configuration used by the game engine. Should be initialized u
 #define CONFIG_H
 
 #define MAX_PIPES 8
-#define MAX_USERNAME_LEN 20
 #define TICKRATE 30
 #define TIMESTEP 1.0f/TICKRATE
 #define WORLD_HEIGHT 30
@@ -21,6 +20,8 @@ Holds the runtime configuration used by the game engine. Should be initialized u
 #define RAND_MARGIN_PERCENT 10
 #define PIPE_GAP_MIN (WORLD_HEIGHT*(0.5f - RAND_MARGIN_PERCENT/100.0f))
 #define PIPE_GAP_MAX (WORLD_HEIGHT*(0.5f + RAND_MARGIN_PERCENT/100.0f))
+#define MAX_USERNAME_LEN 4 //3 chars + null terminator
+#define MAX_SCORES 3 //only 3 highest scores are stored
 //TODO: Set useful default values
 #define DEFAULT_START_POS_X 0
 #define DEFAULT_START_POS_Y 0
