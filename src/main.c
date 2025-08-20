@@ -9,6 +9,7 @@ Key components used:
 - InputAction: Represents user input actions.
 - Timer: Used to calculate frame timing for smooth updates.
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

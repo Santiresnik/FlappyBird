@@ -45,6 +45,9 @@ $(BIN_DIR):
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
 
+run: 
+	./$(TARGET)
+
 print-vars:
 	@echo "CC = $(CC)"
 	@echo "CFLAGS = $(CFLAGS)"
@@ -61,6 +64,6 @@ print-vars:
 	@echo "SRCS = $(SRCS)"
 	@echo "OBJS = $(OBJS)"
 
-.PHONY: all clean print-vars
+.PHONY: all clean print-vars run
 
 -include $(DEPS)
