@@ -17,6 +17,8 @@ Holds the runtime configuration used by the game engine. Should be initialized u
 #define TIMESTEP 1.0f/TICKRATE
 #define WORLD_HEIGHT 30.0f // Game units, by default matches the height and width of the terminal grid
 #define WORLD_WIDTH 120.0f
+#define FLOOR_HEIGHT (WORLD_HEIGHT/10.0f) // Height of the floor in game units, used to determine collision with the ground
+
 #define RAND_MARGIN_PERCENT 10.0f
 #define PIPE_GAP_MIN (WORLD_HEIGHT*(0.5f - RAND_MARGIN_PERCENT/100.0f) - DEFAULT_PIPE_GAP_HEIGHT)
 #define PIPE_GAP_MAX (WORLD_HEIGHT*(0.5f + RAND_MARGIN_PERCENT/100.0f))

@@ -24,8 +24,8 @@ void physics_update(GameState* state, float dt){
         state->bird.y = WORLD_HEIGHT;
         state->bird.velocity = 0;
     }
-    if(state->bird.y < 0){ //stops bird from passing limit
-        state->bird.y = 0;
+    if(state->bird.y <= FLOOR_HEIGHT){ //stops bird from passing limit
+        state->bird.y = FLOOR_HEIGHT;
         state->bird.velocity = 0;
     }
     update_pipes(state, dt);

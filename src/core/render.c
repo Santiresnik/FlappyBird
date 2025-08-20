@@ -1,7 +1,7 @@
 #include "render.h"
 #include "curses_wrapper.h"
 
-#define BIRD_SYMBOL '>'
+#define BIRD_SYMBOL '@'
 #define PIPE_SYMBOL ' '
 #define MAP(ix, il, ih, ol, oh) ((ol) + (((ix)-(il))*((oh)-(ol)))/((ih)-(il)))
 #define ROUND(x) (((x) - (int)(x)) >= 0.5f ? (int)(x) + 1 : (int)(x))
@@ -22,11 +22,15 @@ void render_init(void) {
     getmaxyx(stdscr, rows, cols);
     if (has_colors()) {
         start_color();
-        init_pair(1, COLOR_YELLOW, COLOR_BLACK); // bird
-        init_pair(2, COLOR_GREEN, COLOR_GREEN);  // pipes
-        init_pair(3, COLOR_WHITE, COLOR_BLACK);  // score
+        init_pair(1, COLOR_BLACK, COLOR_CYAN); // bird
+        init_pair(2, COLOR_GREEN, COLOR_GREEN); // pipes
+        init_pair(3, COLOR_WHITE, COLOR_BLACK); // score
+        init_pair(4, COLOR_WHITE, COLOR_CYAN);  // background
+        init_pair(5, COLOR_RED, COLOR_BLACK);   // game over
     }
+    bkgd(COLOR_PAIR(4)); // Set background color to white
     clear();
+    refresh();
 }
 
 void render_shutdown(void) {
@@ -44,6 +48,7 @@ void render_draw(const GameState* game){
     int bx, by, pipe_x, pipe_gap_y;
     int pipe_width = ROUND(((float)cols/WORLD_WIDTH)*(game->config.pipe_width));
     int pipe_gap_height = ROUND(((float)rows/WORLD_HEIGHT)*(game->config.pipe_gap_height));
+    int floor_y = rows - ROUND(((float)rows/WORLD_HEIGHT)*(FLOOR_HEIGHT)) - 1;
     game_to_screen_xy(cols, rows, game->bird.x, game->bird.y, &bx, &by);
 
     erase();
@@ -60,12 +65,19 @@ void render_draw(const GameState* game){
     }
     attroff(COLOR_PAIR(1));
 
+    // Draw the floor
+    attron(COLOR_PAIR(5));
+    for(int i=floor_y; i<rows; i++){
+        mvhline(i, 0, ' ', cols);
+    }
+    attroff(COLOR_PAIR(5));
+
     attron(COLOR_PAIR(2));
     for(int i = 0; i<MAX_PIPES; i++){
         Pipe pipe = game->pipes[i];
         if(pipe.active){
             game_to_screen_xy(cols, rows, pipe.x, pipe.gap_y, &pipe_x, &pipe_gap_y);
-            for(int j = 0; j<rows; j++){
+            for(int j = 0; j<floor_y; j++){
                 if(j<(pipe_gap_y-pipe_gap_height) || j>=pipe_gap_y){
                     mvhline(j, pipe_x, PIPE_SYMBOL, pipe_width);
                 }
