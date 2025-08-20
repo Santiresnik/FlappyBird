@@ -15,6 +15,7 @@ Key components used:
 #include "core/game.h"
 #include "core/input.h"
 #include "core/timer.h"
+#include "core/render.h"
 
 int main() {
     srand(time(NULL));
@@ -23,6 +24,7 @@ int main() {
     InputAction key;
     GameState game;
     game_init(&game);
+    render_init();
     int running = 1;
     while (running) {
         current_time = get_current_time();
@@ -40,7 +42,7 @@ int main() {
                 break;
             case STATE_PLAYING:
                 game_update(&game, dt, key);
-                //render_draw_game(&game);
+                render_draw(&game);
                 if (game.is_game_over) {
                     game.current = STATE_GAME_OVER;
                 }
@@ -59,5 +61,6 @@ int main() {
                 break;
         }
     }
+    render_shutdown();
     return 0;
 }

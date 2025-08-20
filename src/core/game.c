@@ -23,7 +23,8 @@ void game_init(GameState* game) {
     game->bird.y = DEFAULT_START_POS_Y;
     game->bird.velocity = 0;
     game->collision_timer = 0.0f;
-
+    game->pipe_spawn_timer = 0.0f;
+    game->current = STATE_MENU;
     for (int i = 0; i < MAX_PIPES; i++) {
         game->pipes[i].active = 0;
     }
@@ -31,7 +32,6 @@ void game_init(GameState* game) {
 
 void game_update(GameState* game, float delta_time, InputAction input) {
     if (!game->is_game_over) {
-
         // Handle jump input
         if (input == INPUT_SPACE) {
             game->bird.velocity = game->config.jump_strength;
@@ -46,8 +46,12 @@ void game_update(GameState* game, float delta_time, InputAction input) {
             if (pipe->active &&
                 pipe->x + game->config.pipe_width < game->bird.x) {
                 game->score++;
-                pipe->active = 0;
             }
+        }
+
+        // Grace period after collision
+        if (game->collision_timer > 0.0f) {
+            game->collision_timer -= delta_time;
         }
 
         // Collision check

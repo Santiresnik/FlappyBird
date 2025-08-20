@@ -46,7 +46,7 @@ void render_draw(const GameState* game){
     int pipe_gap_height = ROUND(((float)rows/WORLD_HEIGHT)*(game->config.pipe_gap_height));
     game_to_screen_xy(cols, rows, game->bird.x, game->bird.y, &bx, &by);
 
-    clear();
+    erase();
     attron(COLOR_PAIR(1));
     mvaddch(by, bx, BIRD_SYMBOL);
     attroff(COLOR_PAIR(1));
@@ -58,9 +58,7 @@ void render_draw(const GameState* game){
             game_to_screen_xy(cols, rows, pipe.x, pipe.gap_y, &pipe_x, &pipe_gap_y);
             for(int j = 0; j<rows; j++){
                 if(j<(pipe_gap_y-pipe_gap_height) || j>=pipe_gap_y){
-                    for(int k = 0; k<pipe_width; k++){
-                        mvaddch(j, pipe_x + k, PIPE_SYMBOL);
-                    }
+                    mvhline(j, pipe_x, PIPE_SYMBOL, pipe_width);
                 }
             }
         }

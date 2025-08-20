@@ -53,6 +53,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/core/physics.h" />
+		<Unit filename="src/core/render.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/core/render.h" />
 		<Unit filename="src/core/timer.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -24,6 +24,10 @@ void physics_update(GameState* state, float dt){
         state->bird.y = WORLD_HEIGHT;
         state->bird.velocity = 0;
     }
+    if(state->bird.y < 0){ //stops bird from passing limit
+        state->bird.y = 0;
+        state->bird.velocity = 0;
+    }
     update_pipes(state, dt);
 }
 
@@ -56,7 +60,7 @@ static void update_pipes(GameState* state, float dt){
 
 int physics_check_collision(const GameState* state){
     int collision = 0;
-    if(state->bird.y < 0){
+    if(state->bird.y <= 0){
         collision = 1;
     }
     else{
