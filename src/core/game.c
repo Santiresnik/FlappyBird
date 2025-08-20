@@ -27,6 +27,7 @@ void game_init(GameState* game) {
     game->current = STATE_MENU;
     for (int i = 0; i < MAX_PIPES; i++) {
         game->pipes[i].active = 0;
+        game->pipes[i].scored = 0;
     }
 }
 
@@ -44,8 +45,10 @@ void game_update(GameState* game, float delta_time, InputAction input) {
         for (int i = 0; i < MAX_PIPES; i++) {
             Pipe* pipe = &game->pipes[i];
             if (pipe->active &&
+                !pipe->scored &&
                 pipe->x + game->config.pipe_width < game->bird.x) {
                 game->score++;
+                pipe->scored = 1; // Mark this pipe as scored
             }
         }
 

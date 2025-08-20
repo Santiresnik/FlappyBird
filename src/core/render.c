@@ -14,11 +14,13 @@ static int cols;
 void render_init(void) {
     savetty();
     initscr();            // Start curses mode
-    cbreak();             // Disable line buffering
     noecho();             // Don’t echo pressed keys
     keypad(stdscr, TRUE); // Enable special keys (arrows, etc.)
     curs_set(0);          // Hide cursor
+//    halfdelay(1);      // Wait up to 100ms for user input
+    cbreak();             // Disable line buffering
     nodelay(stdscr, TRUE); // Non-blocking input
+//    timeout(10);
     getmaxyx(stdscr, rows, cols);
     if (has_colors()) {
         start_color();
@@ -47,8 +49,17 @@ void render_draw(const GameState* game){
     game_to_screen_xy(cols, rows, game->bird.x, game->bird.y, &bx, &by);
 
     erase();
+    
     attron(COLOR_PAIR(1));
-    mvaddch(by, bx, BIRD_SYMBOL);
+    if (game->collision_timer > 0) {
+        // Blink: only show the bird if "timer * 10" is even
+        if (((int)(game->collision_timer * 10)) % 2 == 0) {
+            mvaddch(by, bx, BIRD_SYMBOL);
+        }
+    } else {
+        // Normal render
+        mvaddch(by, bx, BIRD_SYMBOL);
+    }
     attroff(COLOR_PAIR(1));
 
     attron(COLOR_PAIR(2));
