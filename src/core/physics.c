@@ -39,6 +39,7 @@ static void update_pipes(GameState* state, float dt){
             pipe->x += state->config.pipe_speed * dt;
             if(pipe->x + state->config.pipe_width < 0){
                 pipe->active = 0; //deactivates pipe if its all non visible
+                pipe->passed = 0;
             }
         }
     }
