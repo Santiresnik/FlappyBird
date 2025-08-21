@@ -14,7 +14,7 @@ Linux bash commands (Ubuntu):
 
 Windows:
 
-    [Link to PDCurses (equivalent of ncurses for CodeBlocks)](https://pdcurses.org/)
+[Link to PDCurses (equivalent of ncurses for CodeBlocks)](https://pdcurses.org/)
 
 
 📁 Project Structure

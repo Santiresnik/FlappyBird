@@ -1,7 +1,7 @@
 #include "render.h"
 #include "curses_wrapper.h"
 
-#define BIRD_SYMBOL '@'
+#define DEFAULT_BIRDSYMBOL '@'
 #define PIPE_SYMBOL ' '
 #define MAP(ix, il, ih, ol, oh) ((ol) + (((ix)-(il))*((oh)-(ol)))/((ih)-(il)))
 #define ROUND(x) (((x) - (int)(x)) >= 0.5f ? (int)(x) + 1 : (int)(x))
@@ -52,6 +52,17 @@ void render_draw(const GameState* game){
     game_to_screen_xy(cols, rows, game->bird.x, game->bird.y, &bx, &by);
 
     erase();
+
+    char BIRD_SYMBOL = DEFAULT_BIRDSYMBOL; 
+    //We can add conditional for changing bird skin
+    if (game->bird.velocity < -1.0f) {
+        BIRD_SYMBOL = '^'; // flying up
+    } else if (game->bird.velocity > 1.0f) {
+        BIRD_SYMBOL = 'v'; // falling
+    } else {
+        BIRD_SYMBOL = '~'; // gliding
+    }
+
     
     attron(COLOR_PAIR(1));
     if (game->collision_timer > 0) {
@@ -108,9 +119,52 @@ static void game_to_screen_xy(int scr_width, int scr_height, float gx, float gy,
 }
 
 void render_menu(const GameState* game){
+    erase();
 
+    // Set colors for title
+    attron(COLOR_PAIR(1));
+
+    // Center "Flappy Bird" title
+    const char *title = "FLAPPY BIRD";
+    int title_row = rows / 3;
+    int title_col = (cols - 12) / 2;
+    mvprintw(title_row, title_col, "%s", title);
+   
+
+    attroff(COLOR_PAIR(1));
+
+    // Instructions
+    attron(COLOR_PAIR(3));
+    const char *instr = "Press SPACE to start playing";
+    int instr_row = title_row + 6;
+    int instr_col = (cols - 29) / 2;
+    mvprintw(instr_row, instr_col, "%s", instr);
+    attroff(COLOR_PAIR(3));
+
+    refresh();
 }
 
 void render_gameover(const GameState* game){
+    erase();
 
+    // Set colors for game over
+    attron(COLOR_PAIR(5));
+
+    // Center "GAME OVER!" title
+    const char *title = "GAME OVER!";
+    int title_row = rows / 3;
+    int title_col = (cols - 11) / 2;
+    mvprintw(title_row, title_col, "%s", title);
+
+    attroff(COLOR_PAIR(5));
+
+    // Instructions
+    attron(COLOR_PAIR(3));
+    const char *instr = "Press SPACE to play again";
+    int instr_row = title_row + 4;
+    int instr_col = (cols - 26) / 2;
+    mvprintw(instr_row, instr_col, "%s", instr);
+    attroff(COLOR_PAIR(3));
+
+    refresh();
 }
