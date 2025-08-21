@@ -156,6 +156,14 @@ void render_gameover(const GameState* game){
     int title_col = (cols - 11) / 2;
     mvprintw(title_row, title_col, "%s", title);
 
+
+    // Custom message: (name), you lose
+    char lose_msg[32];
+    snprintf(lose_msg, sizeof(lose_msg), "%s, you lose", game->username);
+    int msg_row = title_row + 2;
+    int msg_col = (cols - 14) / 2;
+    mvprintw(msg_row, msg_col, "%s", lose_msg);
+
     attroff(COLOR_PAIR(5));
 
     // Instructions
@@ -167,4 +175,49 @@ void render_gameover(const GameState* game){
     attroff(COLOR_PAIR(3));
 
     refresh();
+}
+
+void input_get_nickname(GameState *nickname) {
+    int pos = 0;
+    char letters[3] = {'A', 'A', 'A'};
+    int done = 0;
+
+    while (!done) {
+        // Render nickname input
+        erase();
+        mvprintw(5, 10, "Enter your nickname:");
+        for (int i = 0; i < 3; i++) {
+            if (i == pos) attron(A_REVERSE);
+            mvprintw(7, 10 + i * 2, "%c", letters[i]);
+            if (i == pos) attroff(A_REVERSE);
+        }
+        mvprintw(9, 10, "Use arrows to select/change. Enter to confirm.");
+        refresh();
+
+        int ch = getch();
+        switch (ch) {
+            case KEY_LEFT:
+                if (pos > 0) pos--;
+                break;
+            case KEY_RIGHT:
+                if (pos < 2) pos++;
+                break;
+            case KEY_UP:
+                if (letters[pos] < 'Z') letters[pos]++;
+                break;
+            case KEY_DOWN:
+                if (letters[pos] > 'A') letters[pos]--;
+                break;
+            case '\n': // Enter
+            case KEY_ENTER:
+                done = 1;
+                break;
+        }
+    }
+    // Save nickname
+    nickname->username[0] = letters[0];
+    nickname->username[1] = letters[1];
+    nickname->username[2] = letters[2];
+    nickname->username[3] = '\0';
+
 }

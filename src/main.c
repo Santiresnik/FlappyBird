@@ -27,21 +27,29 @@ int main() {
     game_init(&game);
     render_init();
     int running = 1;
+    int nickname_entered = 0;
+    
     while (running) {
         current_time = get_current_time();
         dt = current_time - previous_time;
         previous_time = current_time;
-        key = input_poll(); //Input key
+        key = input_poll(); //Input key   
+
         switch (game.current) {
             case STATE_MENU:
+                if (!nickname_entered) {
+                input_get_nickname(&game);
+                nickname_entered = 1;
+                }
                 render_menu(&game);
-                if (key == INPUT_SPACE || key == INPUT_ENTER) { //just to fill, does not mean this is how game will work
+                if (key == INPUT_SPACE || key == INPUT_ENTER) {
                     game_reset(&game);
                     game.current = STATE_PLAYING;
+                    nickname_entered = 0; // Reset for next time you return to menu
                 } else if (key == INPUT_ESC) {
                     game.current = STATE_QUIT;
                 }
-                break;
+            break;
             case STATE_PLAYING:
                 game_update(&game, dt, key);
                 render_draw(&game);
