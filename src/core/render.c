@@ -1,6 +1,8 @@
 #include "render.h"
 #include "curses_wrapper.h"
+#include "input.h"
 
+#define HEART "<3 "
 #define DEFAULT_BIRDSYMBOL '@'
 #define PIPE_SYMBOL ' '
 #define MAP(ix, il, ih, ol, oh) ((ol) + (((ix)-(il))*((oh)-(ol)))/((ih)-(il)))
@@ -12,13 +14,12 @@ static int rows;
 static int cols;
 
 void render_init(void) {
-    savetty();
     initscr();            // Start curses mode
+    cbreak();             // Disable line buffering
     noecho();             // Don’t echo pressed keys
     keypad(stdscr, TRUE); // Enable special keys (arrows, etc.)
-    curs_set(0);          // Hide cursor
-    cbreak();             // Disable line buffering
     nodelay(stdscr, TRUE); // Non-blocking input
+    curs_set(0);          // Hide cursor
     getmaxyx(stdscr, rows, cols);
     if (has_colors()) {
         start_color();
@@ -29,19 +30,21 @@ void render_init(void) {
         init_pair(5, COLOR_RED, COLOR_BLACK);   // game over
     }
     bkgd(COLOR_PAIR(4)); // Set background color to white
-    clear();
+    erase();
     refresh();
 }
 
 void render_shutdown(void) {
-    if (has_colors()) {
-        attroff(COLOR_PAIR(1));
-        attroff(COLOR_PAIR(2));
-        attroff(COLOR_PAIR(3));
+    // Undo modes in reverse order
+    nodelay(stdscr, FALSE);
+    keypad(stdscr, FALSE);
+    nocbreak();
+    echo();
+    curs_set(1);
+
+    if (!isendwin()) {
+        endwin();
     }
-    curs_set(1); // Show cursor again
-    endwin();    // End curses mode
-    resetty();   // Restore saved terminal state
 }
 
 void render_draw(const GameState* game){
@@ -194,22 +197,21 @@ void input_get_nickname(GameState *nickname) {
         mvprintw(9, 10, "Use arrows to select/change. Enter to confirm.");
         refresh();
 
-        int ch = getch();
-        switch (ch) {
-            case KEY_LEFT:
+        InputAction input = input_poll();
+        switch (input) {
+            case INPUT_LEFT:
                 if (pos > 0) pos--;
                 break;
-            case KEY_RIGHT:
+            case INPUT_RIGHT:
                 if (pos < 2) pos++;
                 break;
-            case KEY_UP:
+            case INPUT_UP:
                 if (letters[pos] < 'Z') letters[pos]++;
                 break;
-            case KEY_DOWN:
+            case INPUT_DOWN:
                 if (letters[pos] > 'A') letters[pos]--;
                 break;
-            case '\n': // Enter
-            case KEY_ENTER:
+            case INPUT_ENTER:
                 done = 1;
                 break;
         }

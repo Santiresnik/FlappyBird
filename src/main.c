@@ -49,7 +49,7 @@ int main() {
                 } else if (key == INPUT_ESC) {
                     game.current = STATE_QUIT;
                 }
-            break;
+                break;
             case STATE_PLAYING:
                 game_update(&game, dt, key);
                 render_draw(&game);
@@ -58,12 +58,8 @@ int main() {
                 }
                 break;
             case STATE_GAME_OVER: //just for now, maybe we change, with r reset and q quit
-                //render_draw_game_over(&game);
-
                 //add_high_score(game.username, game.score);
-
                 render_gameover(&game);
-                
                 if (key == INPUT_SPACE || key == INPUT_ENTER) {
                     game_reset(&game);
                     game.current = STATE_PLAYING;
