@@ -53,7 +53,7 @@ void render_draw(const GameState* game){
 
     erase();
 
-    char BIRD_SYMBOL = DEFAULT_BIRDSYMBOL; 
+    char BIRD_SYMBOL = DEFAULT_BIRDSYMBOL;
     //We can add conditional for changing bird skin
     if (game->bird.velocity < -1.0f) {
         BIRD_SYMBOL = '^'; // flying up
@@ -63,7 +63,7 @@ void render_draw(const GameState* game){
         BIRD_SYMBOL = '~'; // gliding
     }
 
-    
+
     attron(COLOR_PAIR(1));
     if (game->collision_timer > 0) {
         // Blink: only show the bird if "timer * 10" is even
@@ -129,7 +129,7 @@ void render_menu(const GameState* game){
     int title_row = rows / 3;
     int title_col = (cols - 12) / 2;
     mvprintw(title_row, title_col, "%s", title);
-   
+
 
     attroff(COLOR_PAIR(1));
 
@@ -153,24 +153,50 @@ void render_gameover(const GameState* game){
     // Center "GAME OVER!" title
     const char *title = "GAME OVER!";
     int title_row = rows / 3;
-    int title_col = (cols - 11) / 2;
+    int title_len = 10; // "GAME OVER!" is 10 chars
+    int title_col = (cols - title_len) / 2;
     mvprintw(title_row, title_col, "%s", title);
-
 
     // Custom message: (name), you lose
     char lose_msg[32];
     snprintf(lose_msg, sizeof(lose_msg), "%s, you lose", game->username);
+
+    // Calculate lose_msg length manually
+    int name_len = 0;
+    while (game->username[name_len] && name_len < 3) name_len++;
+    int lose_msg_len = name_len + 8; // ", you lose" is 8 chars
     int msg_row = title_row + 2;
-    int msg_col = (cols - 14) / 2;
+    int msg_col = (cols - lose_msg_len) / 2;
     mvprintw(msg_row, msg_col, "%s", lose_msg);
 
     attroff(COLOR_PAIR(5));
+    attron(COLOR_PAIR(3));
+
+    // Show score below lose message
+    char score_msg[32];
+    snprintf(score_msg, sizeof(score_msg), "Score: %d", game->score);
+
+    // Calculate score message length manually
+    int score = game->score;
+    int digits = 1;
+    int temp = score;
+    while (temp >= 10) {
+        temp /= 10;
+        digits++;
+    }
+    int score_msg_len = 7 + digits; // "Score: " is 7 chars
+    int score_row = msg_row + 2;
+    int score_col = (cols - score_msg_len) / 2;
+    mvprintw(score_row, score_col, "%s", score_msg);
+
+   
 
     // Instructions
-    attron(COLOR_PAIR(3));
+   
     const char *instr = "Press SPACE to play again";
-    int instr_row = title_row + 4;
-    int instr_col = (cols - 26) / 2;
+    int instr_row = score_row + 2;
+    int instr_len = 26; // "Press SPACE to play again"
+    int instr_col = (cols - instr_len) / 2;
     mvprintw(instr_row, instr_col, "%s", instr);
     attroff(COLOR_PAIR(3));
 
