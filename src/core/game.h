@@ -18,6 +18,7 @@ GameStateId: Enum representing the current phase of the game (e.g., menu, playin
 #define GAME_H
 #include "config.h"
 #include "input.h"
+
 typedef struct {
     float x;
     float y;
@@ -47,24 +48,14 @@ typedef struct {
     int lives;
     int is_game_over;
     GameConfig config;
-    char username[MAX_USERNAME_LEN];
+    char username[MAX_USERNAME_LEN+1];
     float collision_timer; // Grace period timer
 
 } GameState;
 
-/*
-typedef struct {
-    char name[MAX_USERNAME_LEN]; // 3 letters + '\0'
-    int score;
-} HighScore;
 
-extern HighScore high_scores[MAX_SCORES];
-
-void add_high_score(const char *name, int score);
-
-*/
 void game_init(GameState *game);
-void game_update(GameState *game, float delta_time, InputAction jump_input);
+void game_update(GameState *game, float delta_time, InputAction input);
 void game_handle_collision(GameState *game);
 void game_reset(GameState *game);
 

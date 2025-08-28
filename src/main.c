@@ -28,6 +28,7 @@ int main() {
     render_init();
     int running = 1;
     int nickname_entered = 0;
+    NicknameState nickname_state = { .letters={'A','A','A'}, .pos=0, .done=0 };
     
     while (running) {
         current_time = get_current_time();
@@ -38,16 +39,26 @@ int main() {
         switch (game.current) {
             case STATE_MENU:
                 if (!nickname_entered) {
-                input_get_nickname(&game);
-                nickname_entered = 1;
+                    render_nickname(&nickname_state);
+                    input_nickname(&nickname_state, key);
+                    
+                    if (nickname_state.done) {
+                        for (int i = 0; i < 3; i++){
+                            game.username[i] = nickname_state.letters[i];
+                        }
+                        game.username[MAX_USERNAME_LEN] = '\0';
+                        nickname_entered = 1;
+                    }                
                 }
-                render_menu(&game);
-                if (key == INPUT_SPACE || key == INPUT_ENTER) {
-                    game_reset(&game);
-                    game.current = STATE_PLAYING;
-                    nickname_entered = 0; // Reset for next time you return to menu
-                } else if (key == INPUT_ESC) {
-                    game.current = STATE_QUIT;
+                else {
+                    render_menu(&game);
+                    if (key == INPUT_SPACE || key == INPUT_ENTER) {
+                        game_reset(&game);
+                        game.current = STATE_PLAYING;
+                        nickname_entered = 0; // Reset for next time you return to menu
+                    } else if (key == INPUT_ESC) {
+                        game.current = STATE_QUIT;
+                    }
                 }
                 break;
             case STATE_PLAYING:
@@ -75,26 +86,3 @@ int main() {
     render_shutdown();
     return 0;
 }
-/*
-  void add_high_score(const char *name, int score) {
-    // Find position for new score
-    int i;
-    for (i = 0; i < MAX_SCORES; i++) {
-        if (score > high_scores[i].score) {
-            // Shift lower scores down
-            for (int j = MAX_SCORES - 1; j > i; j--) {
-                high_scores[j] = high_scores[j - 1];
-            }
-            // Insert new score
-            high_scores[i].name[0] = name[0];
-            high_scores[i].name[1] = name[1];
-            high_scores[i].name[2] = name[2];
-            high_scores[i].name[3] = '\0';
-            high_scores[i].score = score;
-            break;
-        }
-    }
-}
-*/
-
-

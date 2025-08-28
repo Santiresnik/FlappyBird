@@ -56,3 +56,25 @@ InputAction input_poll(void){
     }
     return input;
 }
+
+void input_nickname(NicknameState* state, InputAction input) {
+    switch (input) {
+        case INPUT_LEFT:
+            if (state->pos > 0) state->pos--;
+            break;
+        case INPUT_RIGHT:
+            if (state->pos < MAX_USERNAME_LEN-1) state->pos++;
+            break;
+        case INPUT_UP:
+            if (state->letters[state->pos] < 'Z') state->letters[state->pos]++;
+            break;
+        case INPUT_DOWN:
+            if (state->letters[state->pos] > 'A') state->letters[state->pos]--;
+            break;
+        case INPUT_ENTER:
+            state->done = 1;
+            break;
+        default:
+            break;
+    }
+}
