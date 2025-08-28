@@ -17,6 +17,7 @@ Key components used:
 #include "core/input.h"
 #include "core/timer.h"
 #include "core/render.h"
+#include "core/config.h"
 
 int main() {
     srand(time(NULL));
@@ -43,7 +44,7 @@ int main() {
                     input_nickname(&nickname_state, key);
                     
                     if (nickname_state.done) {
-                        for (int i = 0; i < 3; i++){
+                        for (int i = 0; i < MAX_USERNAME_LEN; i++){
                             game.username[i] = nickname_state.letters[i];
                         }
                         game.username[MAX_USERNAME_LEN] = '\0';
@@ -66,6 +67,7 @@ int main() {
                 render_draw(&game);
                 if (game.is_game_over) {
                     game.current = STATE_GAME_OVER;
+                    historyLog(game.username, game.score);
                 }
                 break;
             case STATE_GAME_OVER: //just for now, maybe we change, with r reset and q quit

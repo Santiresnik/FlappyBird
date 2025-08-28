@@ -49,4 +49,5 @@ typedef struct {
 } GameConfig;
 
 void loadDefaultConfig(GameConfig* config);
+void historyLog(const char* username, int score);
 #endif

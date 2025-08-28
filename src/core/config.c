@@ -11,6 +11,7 @@ game starts with consistent parameters.
 
 */
 #include "config.h"
+#include <stdio.h>
 
 void loadDefaultConfig(GameConfig* config) {
     config->gravity = DEFAULT_GRAVITY;
@@ -20,4 +21,12 @@ void loadDefaultConfig(GameConfig* config) {
     config->pipe_width = DEFAULT_PIPE_WIDTH;
     config->pipe_spawn_interval = DEFAULT_PIPE_SPAWN_INTERVAL;
     config->jump_key = DEFAULT_JUMP_KEY;
+}
+
+void historyLog(const char* username, int score){
+    FILE *file = fopen("scores.txt", "a");
+    if (file != NULL) {
+        fprintf(file, "%s %d\n", username, score);
+        fclose(file);
+    }
 }
