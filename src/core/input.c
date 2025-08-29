@@ -5,8 +5,11 @@
  Uses (n)curses.h function getch() to check if a key has been pressed (non blocking
  if configured properly) including special keys like arrow keys.
 
- The function input_poll_windows() returns an InputAction enum value representing
- the detected key press or INPUT_NONE if no key is pressed.
+  Functions:
+ - input_poll() returns an InputAction enum value representing the detected key press
+   or INPUT_NONE if no key is pressed.
+ - input_nickname() updates a NicknameState structure, allowing the player to edit
+   their name using arrow keys.
 
  Usage:
 

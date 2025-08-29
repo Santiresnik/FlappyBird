@@ -1,3 +1,32 @@
+/*
+ Handles all terminal-based rendering for the Flappy Bird–like game
+ using the ncurses (or PDCurses) library.
+
+ Converts the logical game state (bird position, pipes, score, lives, etc.)
+ into a visual representation in the terminal window, including menus,
+ the in-game view, game-over screen, and nickname entry UI.
+
+ Converts the logical game world (WORLD_WIDTH x WORLD_HEIGHT) into
+ terminal rows/cols obtained via getmaxyx(). A linear MAP + ROUND
+ transform scales all positions so the game adapts to any terminal size.
+
+ Main functions:
+
+ - render_init():
+     Initializes the curses environment, configures input, color pairs,
+     and retrieves terminal size for scaling.
+ - render_draw():
+     Clears the screen and draws all active elements
+ - render_menu():
+     Displays the main title screen and prompts to start.
+ - render_gameover():
+     Shows GAME OVER message, player nickname, score,
+     and leaderboard with stored high scores.
+- render_nickname():
+     Screen for nickname entry
+
+*/
+
 #include "render.h"
 #include "curses_wrapper.h"
 #include "input.h"
