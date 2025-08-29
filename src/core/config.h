@@ -25,6 +25,8 @@ Holds the runtime configuration used by the game engine. Should be initialized u
 
 #define MAX_USERNAME_LEN 3 //3 chars + null terminator
 #define MAX_SCORES 3 //only 3 highest scores are stored
+#define MAX_TOTAL_SCORES 1000 // capacity of scores.txt
+
 
 #define DEFAULT_START_POS_X (WORLD_WIDTH/4.0f)
 #define DEFAULT_START_POS_Y (WORLD_HEIGHT/2.0f)
@@ -48,6 +50,12 @@ typedef struct {
     char jump_key;
 } GameConfig;
 
+typedef struct {
+    char name[4];
+    int score;
+} HighScore;
+
 void loadDefaultConfig(GameConfig* config);
 void historyLog(const char* username, int score);
+int read_high_scores(HighScore *scores, int max_scores);
 #endif

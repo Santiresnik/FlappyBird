@@ -78,3 +78,5 @@ void input_nickname(NicknameState* state, InputAction input) {
             break;
     }
 }
+
+

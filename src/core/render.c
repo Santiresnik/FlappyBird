@@ -182,7 +182,18 @@ void render_gameover(const GameState* game){
     int score_col = (cols - strlen(score_msg)) / 2;
     mvprintw(score_row, score_col, "%s", score_msg);
 
-   
+    //Highscore
+    HighScore scores[MAX_SCORES];
+    int num_scores = read_high_scores(scores, MAX_SCORES);
+
+    attron(COLOR_PAIR(3));
+    txt = "=== HIGH SCORES ===";
+    int scores_row = score_row +3;
+    mvprintw(scores_row, (cols - strlen(txt)) / 2, txt);
+    for (int i = 0; i < num_scores; i++) {
+        mvprintw(scores_row + i + 1, (cols-16)/2, "%d. %s - %d", i+1, scores[i].name, scores[i].score);
+    }
+    attroff(COLOR_PAIR(3));
 
     // Instructions
    
