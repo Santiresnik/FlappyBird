@@ -36,17 +36,10 @@ src/
 
 │ ├── render.[ch] → Abstract rendering interface
 
+│ ├── render.[ch] → ASCII rendering with curses
+
 │ ├── timer.[ch] → Frame timing, FPS handling
 
-├── platform/windows/ → Windows-specific input/rendering
-
-│ ├── render_windows.[ch] → ASCII rendering for Windows terminal
-
-├── platform/linux/ → Linux-specific input/rendering
-
-│ ├── render_linux.[ch] → ASCII rendering for linux terminal
-
-│
 ├── main.c → Entry point, handles initialization & game loop
 
 ├── Makefile → Linux build script
