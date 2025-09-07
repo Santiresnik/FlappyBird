@@ -69,6 +69,12 @@ int main() {
                     game.current = STATE_GAME_OVER;
                     historyLog(game.username, game.score);
                 }
+                if (key == INPUT_ESC) {
+                    game.current = STATE_MENU;
+                }
+                if (key == INPUT_ENTER) {
+                    game.current = STATE_PAUSE;
+                }
                 break;
             case STATE_GAME_OVER: //just for now, maybe we change, with r reset and q quit
                 //add_high_score(game.username, game.score);
@@ -80,6 +86,22 @@ int main() {
                     game.current = STATE_QUIT;
                 }
                 break;
+
+            case STATE_PAUSE:
+                render_pause(&game);
+                switch (key) {
+                    case INPUT_ENTER:
+                        game_reset(&game);
+                    case INPUT_SPACE:
+                        game.current = STATE_PLAYING;
+                        break;
+                    case INPUT_ESC:
+                        game.current = STATE_MENU;
+                        break;
+                    default:
+                        break; // Stay in pause
+                }
+                break; 
             case STATE_QUIT:
                 running = 0;
                 break;

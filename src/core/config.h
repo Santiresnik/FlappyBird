@@ -24,7 +24,7 @@ Holds the runtime configuration used by the game engine. Should be initialized u
 #define PIPE_GAP_MAX (WORLD_HEIGHT*(0.5f + RAND_MARGIN_PERCENT/100.0f))
 
 #define MAX_USERNAME_LEN 3 //3 chars + null terminator
-#define MAX_SCORES 3 //only 3 highest scores are stored
+#define MAX_SCORES 5 //only 3 highest scores are showed
 #define MAX_TOTAL_SCORES 1000 // capacity of scores.txt
 
 

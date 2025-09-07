@@ -183,6 +183,29 @@ void render_menu(const GameState* game){
     refresh();
 }
 
+void render_pause(const GameState* game){
+    erase();
+
+    // Set colors for pause
+    attron(COLOR_PAIR(1));
+
+    // Center "PAUSED" title
+    const char *txt = "PAUSED";
+    int title_col = (cols - strlen(txt)) / 2;
+    mvprintw(rows/3, title_col, "%s", txt);
+
+    attroff(COLOR_PAIR(1));
+
+    // Instructions
+    attron(COLOR_PAIR(3));
+    txt = "Press ESC to return to menu, ENTER fro restart or SPACE to resume";
+    int instr_col = (cols - strlen(txt)) / 2;
+    mvprintw(rows/2, instr_col, "%s", txt);
+    attroff(COLOR_PAIR(3));
+
+    refresh();
+}
+
 void render_gameover(const GameState* game){
     erase();
 
@@ -211,6 +234,14 @@ void render_gameover(const GameState* game){
     int score_col = (cols - strlen(score_msg)) / 2;
     mvprintw(score_row, score_col, "%s", score_msg);
 
+    // Instructions
+   
+    txt = "Press SPACE to play again";
+    int instr_row = score_row + 2;
+    int instr_col = (cols - strlen(txt)) / 2;
+    mvprintw(instr_row, instr_col, "%s", txt);
+    attroff(COLOR_PAIR(3));
+
     //Highscore
     HighScore scores[MAX_SCORES];
     int num_scores = read_high_scores(scores, MAX_SCORES);
@@ -222,14 +253,6 @@ void render_gameover(const GameState* game){
     for (int i = 0; i < num_scores; i++) {
         mvprintw(scores_row + i + 1, (cols-16)/2, "%d. %s - %d", i+1, scores[i].name, scores[i].score);
     }
-    attroff(COLOR_PAIR(3));
-
-    // Instructions
-   
-    txt = "Press SPACE to play again";
-    int instr_row = score_row + 2;
-    int instr_col = (cols - strlen(txt)) / 2;
-    mvprintw(instr_row, instr_col, "%s", txt);
     attroff(COLOR_PAIR(3));
 
     refresh();
