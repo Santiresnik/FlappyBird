@@ -20,7 +20,7 @@ void game_init(GameState* game) {
     game->lives = DEFAULT_LIVES;
     game->is_game_over = 0;
     game->bird.x = DEFAULT_START_POS_X;
-    game->bird.y = DEFAULT_START_POS_Y;
+    game->bird.y = Bird_Y_Init();
     game->bird.velocity = 0;
     game->collision_timer = 0.0f;
     game->pipe_spawn_timer = 0.0f;

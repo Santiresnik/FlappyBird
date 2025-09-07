@@ -34,8 +34,6 @@ src/
 
 │ ├── physics.[ch] → Gravity, velocity, collisions
 
-│ ├── render.[ch] → Abstract rendering interface
-
 │ ├── render.[ch] → ASCII rendering with curses
 
 │ ├── timer.[ch] → Frame timing, FPS handling

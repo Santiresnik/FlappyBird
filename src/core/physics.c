@@ -17,6 +17,13 @@ game.h for the GameState structure and configuration.
 
 static void update_pipes(GameState* state, float dt);
 
+
+int Bird_Y_Init (void){
+    // Initialize bird's Y position within the gap y range
+    int Bird_Y_Pos = PIPE_GAP_MIN + ((float)rand()/(float)RAND_MAX)*(PIPE_GAP_MAX - PIPE_GAP_MIN);
+    return Bird_Y_Pos;
+}
+
 void physics_update(GameState* state, float dt){
     state->bird.velocity += state->config.gravity * dt;
     state->bird.y += state->bird.velocity * dt;
